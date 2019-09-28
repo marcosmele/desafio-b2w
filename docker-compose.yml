@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    container_name: db
+    networks: 
+      - rede
+  starwarsapp: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - "ambiente=prd"
+    container_name: backend
+    ports:
+      - "8080:8080"
+    networks: 
+      - rede
+    depends_on:
+     - mongo
+            
+networks:
+ rede:
+  driver: bridge
+    

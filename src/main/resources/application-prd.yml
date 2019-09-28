@@ -1,0 +1,11 @@
+server:
+  servlet:
+    contextPath: /starwars
+spring:
+  data:
+    mongodb:
+      host: db
+      database: starwars
+      port: 27017
+  application:
+    name: Star Wars
