@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DesafioApplication.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">desafio (29 de set de 2019 21:43:08)</a> &gt; <a href="../../index.html" class="el_group">desafio</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">br.com.b2w.desafio</a> &gt; <span class="el_source">DesafioApplication.java</span></div><h1>DesafioApplication.java</h1><pre class="source lang-java linenums">package br.com.b2w.desafio;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@SpringBootApplication
+@EnableSwagger2
+<span class="fc" id="L17">public class DesafioApplication {</span>
+
+	public static void main(String[] args) {
+<span class="nc" id="L20">		SpringApplication.run(DesafioApplication.class, args);	</span>
+<span class="nc" id="L21">	}</span>
+	
+	@Bean
+    public Docket api() { 
+<span class="fc" id="L25">        return new Docket(DocumentationType.SWAGGER_2)  </span>
+<span class="fc" id="L26">          .select()                                  </span>
+<span class="fc" id="L27">          .apis(RequestHandlerSelectors.basePackage(&quot;br.com.b2w.desafio.controlador&quot;))              </span>
+<span class="fc" id="L28">          .paths(PathSelectors.any())    </span>
+<span class="fc" id="L29">          .build()</span>
+<span class="fc" id="L30">          .useDefaultResponseMessages(false)</span>
+<span class="fc" id="L31">          .apiInfo(info().build());                                           </span>
+    }
+	
+	private ApiInfoBuilder info() {
+		 
+<span class="fc" id="L36">		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();</span>
+ 
+<span class="fc" id="L38">		apiInfoBuilder.title(&quot;Star Wars API Planetas&quot;);</span>
+<span class="fc" id="L39">		apiInfoBuilder.description(&quot;Api para realização de CRUD de Planetas.&quot;);</span>
+<span class="fc" id="L40">		apiInfoBuilder.version(&quot;1.0&quot;);</span>
+<span class="fc" id="L41">		apiInfoBuilder.termsOfServiceUrl(&quot;Termo de uso: Usado para desafio b2w.&quot;);</span>
+<span class="fc" id="L42">		apiInfoBuilder.license(&quot;Licença - Open Source&quot;);</span>
+<span class="fc" id="L43">		apiInfoBuilder.contact(contato());</span>
+ 
+<span class="fc" id="L45">		return apiInfoBuilder;</span>
+ 
+	}
+	private Contact contato() {
+ 
+<span class="fc" id="L50">		return new Contact(</span>
+<span class="fc" id="L51">				&quot;Marcos Mele&quot;,</span>
+<span class="fc" id="L52">				&quot;https://linkedin.com/in/marcos-mele-23a85b42/&quot;, </span>
+<span class="fc" id="L53">				&quot;marcosmele1@gmail.com&quot;);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>desafio (29 de set de 2019 21:43:08)</div></body></html>

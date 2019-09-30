@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ServicoCache.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">desafio (29 de set de 2019 21:43:08)</a> &gt; <a href="../../index.html" class="el_group">desafio</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">br.com.b2w.desafio.servico</a> &gt; <span class="el_source">ServicoCache.java</span></div><h1>ServicoCache.java</h1><pre class="source lang-java linenums">package br.com.b2w.desafio.servico;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.b2w.desafio.integracao.swapi.PlanetaSwapi;
+import br.com.b2w.desafio.integracao.swapi.SwapiService;
+
+/**
+ * Serviço que mantem um cache (renovado após uma semana) das aparições dos planetas em filmes, utilizando a API pública SWAPI.CO.&lt;br&gt;
+ * O cache é montado a partir de cada consulta realizada.
+ * @author marcos
+ *
+ */
+@Service
+<span class="fc" id="L21">public class ServicoCache {</span>
+	
+<span class="fc" id="L23">	private static Map&lt;String, PlanetaSwapi&gt; cachePlanetas = new HashMap&lt;String, PlanetaSwapi&gt;();</span>
+	
+	@Autowired
+	private SwapiService swapiService;
+	
+	/**
+	 * Consulta o total de aparicoes em filme de um planeta utilizando a API pública SWAPI.CO.&lt;br&gt;
+	 * Caso possua o planeta em cache, retorna o total de aparições instantaneamente.&lt;br&gt;
+	 * Para nao ser dependente da API, retorna 0 caso encontre um problema
+	 * @param Nome do Planeta
+	 * @return Total de aparições
+	 */
+	public int consulta(String nomePlaneta) {
+<span class="fc" id="L36">		Date agora = new Date();</span>
+		try {
+<span class="fc" id="L38">			PlanetaSwapi cachePlaneta = cachePlanetas.get(nomePlaneta);</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">			if(cachePlaneta == null || cachePlaneta.getUltimaConsulta().before(ultimaSemana())) {</span>
+<span class="fc" id="L40">				List&lt;PlanetaSwapi&gt; planetasSwapi = swapiService.obterPlanetas(nomePlaneta);</span>
+				
+<span class="fc" id="L42">				PlanetaSwapi planetaSwapi = planetasSwapi</span>
+<span class="fc" id="L43">						.stream()</span>
+<span class="fc" id="L44">						.filter(p-&gt;p.getName().equals(nomePlaneta))</span>
+<span class="fc" id="L45">						.findFirst()</span>
+<span class="fc" id="L46">						.get();</span>
+				
+<span class="fc" id="L48">				planetaSwapi.setUltimaConsulta(agora);</span>
+<span class="fc" id="L49">				cachePlanetas.put(planetaSwapi.getName(), planetaSwapi);</span>
+				
+<span class="fc" id="L51">				return planetaSwapi.getFilms().size();</span>
+				
+			} else {
+<span class="fc" id="L54">				return cachePlaneta.getFilms().size();</span>
+			}
+<span class="fc" id="L56">		} catch (Exception e) {</span>
+<span class="fc" id="L57">			return 0;</span>
+		}
+	}
+	
+	private Date ultimaSemana(){
+<span class="fc" id="L62">	     return new Date(System.currentTimeMillis()-7*24*60*60*1000);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>desafio (29 de set de 2019 21:43:08)</div></body></html>

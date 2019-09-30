@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ServicoPlaneta.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">desafio (29 de set de 2019 21:43:08)</a> &gt; <a href="../../index.html" class="el_group">desafio</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">br.com.b2w.desafio.servico</a> &gt; <span class="el_source">ServicoPlaneta.java</span></div><h1>ServicoPlaneta.java</h1><pre class="source lang-java linenums">package br.com.b2w.desafio.servico;
+
+import java.math.BigInteger;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+import org.springframework.stereotype.Service;
+
+import br.com.b2w.desafio.excecao.PlanetaNotFoundException;
+import br.com.b2w.desafio.modelo.Planeta;
+import br.com.b2w.desafio.modelo.PlanetaDTO;
+import br.com.b2w.desafio.repositorio.RepositorioPlaneta;
+
+/**
+ * Serviço com operações CRUD sobre planetas
+ * @author marcos
+ *
+ */
+@Service
+<span class="fc" id="L24">public class ServicoPlaneta {</span>
+	
+	@Autowired
+	private RepositorioPlaneta repositorio;
+	
+	@Autowired
+	private ServicoCache cache;
+	
+	/**
+	 * Lista todos os planetas cadastrados.
+	 */
+	public List&lt;Planeta&gt; todos(){
+<span class="fc" id="L36">		List&lt;Planeta&gt; lista = repositorio.findAll();</span>
+<span class="fc" id="L37">		lista.forEach(consumer-&gt;{</span>
+<span class="fc" id="L38">			consumer.setAparicoes(cache.consulta(consumer.getNome()));</span>
+<span class="fc" id="L39">		});</span>
+<span class="fc" id="L40">		return lista;</span>
+	}
+	
+	/**
+	 * Realiza a busca de planeta a partir do seu identificador. 
+	 * @param identificador
+	 * @throws PlanetaNotFoundException se não encontrar um planeta
+	 * @return
+	 */
+	public Planeta buscaPorId(BigInteger id){
+<span class="fc" id="L50">		Planeta planeta = repositorio.findById(id).orElseThrow(()-&gt; new PlanetaNotFoundException(id));</span>
+<span class="fc" id="L51">		planeta.setAparicoes(cache.consulta(planeta.getNome()));</span>
+<span class="fc" id="L52">		return planeta;</span>
+	}
+	
+	/**
+	 * Remove o planeta da base a partir do seu identificador. 
+	 * @param identificador
+	 * @return
+	 */
+	public void deletar(BigInteger id){
+<span class="fc" id="L61">		repositorio.deleteById(id);</span>
+<span class="fc" id="L62">	}</span>
+
+	/**
+	 * Realiza a busca de planeta a partir de uma string. &lt;br&gt;
+	 * A busca pode ser feita utilizando REGEX. &lt;br&gt;
+	 * @param nome (ou string regex) do planeta a ser buscado
+	 * @throws PlanetaNotFoundException se não encontrar um planeta
+	 * @return
+	 */
+	public List&lt;Planeta&gt; buscaPorNome(String nome) {
+<span class="fc" id="L72">		Planeta exemplo = new Planeta();</span>
+<span class="fc" id="L73">		exemplo.setNome(nome);</span>
+		
+<span class="fc" id="L75">		ExampleMatcher withStringMatcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.REGEX);</span>
+<span class="fc" id="L76">		List&lt;Planeta&gt; lista = repositorio.findAll(Example.of(exemplo, withStringMatcher));</span>
+		
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		if (lista.isEmpty()) {</span>
+<span class="fc" id="L79">			throw new PlanetaNotFoundException(nome);</span>
+		}
+		
+<span class="fc" id="L82">		lista.forEach(consumer-&gt;{</span>
+<span class="fc" id="L83">			consumer.setAparicoes(cache.consulta(consumer.getNome()));</span>
+<span class="fc" id="L84">		});</span>
+<span class="fc" id="L85">		return lista;		</span>
+	}
+
+	/**
+	 * Criação do planeta na base de dados
+	 * @param planetaDTO - DTO contendo os dados necessários para inclusão do planeta.
+	 * @return identificador do planeta para futuras consultas
+	 */
+	public BigInteger criar(PlanetaDTO planetaDTO) {
+<span class="fc" id="L94">		Planeta planeta = new Planeta();</span>
+<span class="fc" id="L95">		new ModelMapper().map(planetaDTO, planeta);</span>
+		
+<span class="fc" id="L97">		return repositorio.save(planeta).getId();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>desafio (29 de set de 2019 21:43:08)</div></body></html>

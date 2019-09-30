@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "fa3d6c12-6541-42d2-b900-ee66267135b9",
+		"name": "Desafio B2W",
+		"description": "API StarWars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listar Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/starwars/api/planetas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"starwars",
+						"api",
+						"planetas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/starwars/api/planetas?busca=Tatooine",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"starwars",
+						"api",
+						"planetas"
+					],
+					"query": [
+						{
+							"key": "busca",
+							"value": "Tatooine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/starwars/api/planetas/28956985320485207929685886621",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"starwars",
+						"api",
+						"planetas",
+						"28956985320485207929685886621"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"nome\": \"Tatooine\",\n\"clima\": \"Árido\",\n\"terreno\": \"Arenoso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/starwars/api/planetas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"starwars",
+						"api",
+						"planetas",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/starwars/api/planetas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"starwars",
+						"api",
+						"planetas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4b942009-1d53-4c38-aa9e-214571fc5d16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "71b7571d-a77c-4ffe-b1c5-71b3006a5a85",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

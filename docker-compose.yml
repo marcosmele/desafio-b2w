@@ -8,7 +8,7 @@ services:
   starwarsapp: 
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-Dev
       args:
         - "ambiente=prd"
     container_name: backend

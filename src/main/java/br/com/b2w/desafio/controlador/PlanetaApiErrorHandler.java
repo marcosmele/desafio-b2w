@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.b2w.desafio.excecao.PlanetaNotFoundException;
 
+/**
+ * Handler de erros na utilização da API.
+ * @author marcos
+ *
+ */
 @ControllerAdvice
 class PlanetaApiErrorHandler {
 

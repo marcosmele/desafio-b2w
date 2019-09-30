@@ -14,6 +14,11 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.log4j.Log4j2;
 
+/**
+ * API do SWAPI.CO
+ * @author marcos
+ *
+ */
 @Service
 @Log4j2
 public class SwapiService {
@@ -21,7 +26,12 @@ public class SwapiService {
 	@Value("${swapi.url}")
 	private String swapiUrl;
 
-	public List<PlanetaSwapi> obterPlanetas(String nomePlaneta) {
+	/**
+	 * Consulta a lista de planetas do SWAPI.CO filtradas pelo nome.
+	 * @param Nome do planeta
+	 * @return Lista de planetas e aparições em filmes
+	 */
+	public List<PlanetaSwapi> obterPlanetas(String nomePlaneta) throws IntegracaoSwapiException{
 
 		String url = swapiUrl + "?search=" + nomePlaneta;
 
@@ -39,7 +49,7 @@ public class SwapiService {
 			return result.getBody().getResults();
 		} catch (Exception e) {
 			log.debug("Falha ao obter dados da api do swapi.co", e);
-			throw e;
+			throw new IntegracaoSwapiException();
 		}
 	}
 
