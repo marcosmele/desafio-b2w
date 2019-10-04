@@ -38,7 +38,6 @@ public class DesafioApplication {
 		apiInfoBuilder.title("Star Wars API Planetas");
 		apiInfoBuilder.description("Api para realização de CRUD de Planetas.");
 		apiInfoBuilder.version("1.0");
-		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Usado para desafio b2w.");
 		apiInfoBuilder.license("Licença - Open Source");
 		apiInfoBuilder.contact(contato());
  

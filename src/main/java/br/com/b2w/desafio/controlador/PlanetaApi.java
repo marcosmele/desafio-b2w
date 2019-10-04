@@ -44,7 +44,9 @@ public class PlanetaApi {
 	}
 
 	@ApiOperation(value = "Busca de planeta pelo idenfiticador", response = Planeta.class)
-	@ApiResponses(value = { @ApiResponse(code = 404, message = "Planeta [id] não encontrado") })
+	@ApiResponses(value = { 
+			@ApiResponse(code = 404, message = "Planeta [id] não encontrado"),
+			@ApiResponse(code = 400, message = "Failed to convert value of type 'java.lang.String' to required type 'java.math.BigInteger'")})
 	@GetMapping("/{id}")
 	public Planeta planeta(
 			@PathVariable 

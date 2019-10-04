@@ -121,6 +121,19 @@ public class PlanetaApiTests {
 	}
 	
 	@Test
+	public void buscarNomeInvalidoTest() throws Exception {
+		String nome = "$!%&564&%5315";
+		BDDMockito.given(servico.buscaPorNome(nome)).willThrow(new PlanetaNotFoundException(nome));
+
+		String retornoJson = "Planeta " + nome + " não encontrado";
+
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API_PLANETAS).param("busca", nome);
+		ResultMatcher retorno = MockMvcResultMatchers.content().string(retornoJson);
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	
+	@Test
 	public void buscarIdTest() throws Exception {
 		BigInteger id = new BigInteger("1");
 		Planeta planeta = new Planeta("Tatooine", "Árido", "Deserto");
@@ -149,6 +162,15 @@ public class PlanetaApiTests {
 	@Test
 	public void buscarIdInvalidoTest() throws Exception {
 		String id = "Tatooine";
+
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API_PLANETAS+id);
+		ResultMatcher retorno = MockMvcResultMatchers.status().isBadRequest();
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	@Test
+	public void buscarIdInvalido2Test() throws Exception {
+		String id = "$#!#%$&!";
 
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(API_PLANETAS+id);
 		ResultMatcher retorno = MockMvcResultMatchers.status().isBadRequest();
