@@ -1,8 +1,3 @@
-server:
-  servlet:
-    contextPath: /starwars
 spring:
   application:
     name: Star Wars
-swapi:
-  url: https://swapi.co/api/planets/

@@ -1,0 +1,13 @@
+server:
+  servlet:
+    contextPath: /starwars
+spring:
+  data:
+    mongodb:
+      host: localhost
+      database: local
+      port: 27017
+  application:
+    name: Star Wars
+swapi:
+  url: https://swapi.co/api/planets/

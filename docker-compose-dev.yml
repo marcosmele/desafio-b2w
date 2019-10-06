@@ -6,7 +6,11 @@ services:
     networks: 
       - rede
   starwarsapp: 
-    image: marcosmele/starwars-api
+    build:
+      context: .
+      dockerfile: Dockerfile-Dev
+      args:
+        - "ambiente=dev"
     container_name: backend
     ports:
       - "8080:8080"

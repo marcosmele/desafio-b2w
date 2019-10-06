@@ -39,11 +39,11 @@ public class ServicoCacheTests {
 	@Test
 	public void consultaFilmesTest() throws IntegracaoSwapiException {
 		String nome = "Tatooine";
-		PlanetaSwapi planetaMock = new PlanetaSwapi(nome, Arrays.asList("1","2","3"));
+		PlanetaSwapi planetaMock = new PlanetaSwapi(nome, Arrays.asList("1","2","3","4","5"));
 		
 		BDDMockito.given(swapi.obterPlanetas(nome)).willReturn(Arrays.asList(planetaMock));
 		
-		assertEquals(3,servico.consulta(nome));
+		assertEquals(5,servico.consulta(nome));
 	}
 	
 	@Test

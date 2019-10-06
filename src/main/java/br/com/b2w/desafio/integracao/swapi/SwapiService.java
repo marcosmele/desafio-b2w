@@ -12,15 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.extern.log4j.Log4j2;
-
 /**
  * API do SWAPI.CO
  * @author marcos
  *
  */
 @Service
-@Log4j2
 public class SwapiService {
 
 	@Value("${swapi.url}")
@@ -48,7 +45,7 @@ public class SwapiService {
 		try {
 			return result.getBody().getResults();
 		} catch (Exception e) {
-			log.debug("Falha ao obter dados da api do swapi.co", e);
+			e.printStackTrace();
 			throw new IntegracaoSwapiException();
 		}
 	}
