@@ -8,7 +8,9 @@ import java.math.BigInteger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,7 +18,7 @@ import br.com.b2w.desafio.excecao.PlanetaNotFoundException;
 import br.com.b2w.desafio.modelo.PlanetaDTO;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataMongoTest(includeFilters = @ComponentScan.Filter(Service.class))
 @ActiveProfiles(profiles="test")
 public class ServicoPlanetaTests {
 	
