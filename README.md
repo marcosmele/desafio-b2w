@@ -39,3 +39,4 @@ Para subir um ambiente local existem 2 possibilidades:
 1.  Rode utilizando o arquivo `docker-compose-dev.yml` que irá gerar uma imagem local e subir juntamente com um servidor MongoDB.
 2.  Basta rodar a aplicação no eclipse utilizando o spring profile de desenvolvimento: `-Dspring.profiles.active=dev`. Para isso será necessário que haja um servidor mongo configurado em `application-dev.yml` (Por padrão utilizará a base de dados local:27017)  
 
+Utilizando o arquivo `PostmanCollection.json` é possível testar a API no <a href="https://www.getpostman.com/">Postman</a>.
