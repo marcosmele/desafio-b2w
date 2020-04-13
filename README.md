@@ -1,6 +1,6 @@
-# DESAFIO B2W
+# DESAFIO SW
 
-Este projeto consiste de uma API de planetas de star wars desenvolvida para o desafio b2w.
+Este projeto consiste de uma API de planetas de star wars desenvolvida para o desafio SW.
 
 ## Tecnologias
 
